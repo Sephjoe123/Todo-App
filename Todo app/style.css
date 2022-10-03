@@ -17,23 +17,21 @@ body{
     background-color: #fff;
     width: 32rem;
     margin: 35vh auto;
-    border-radius: 15px;
-    padding: 50px;
+    padding: 20px;
     position: relative;
     padding-top: 90px;
 }
 #container h1{
     position: absolute;
     top: 0px;
-    left: 70px;
+    left: 35px;
 }
 input{
     margin: 10px 20px;
     float: left;
-    width: 80%;
     padding: 10px;
-    border-radius: 10px;
     outline-color: rgb(58, 85, 237);
+    width: 80%;
 }
 .plus{
  font-size: 1rem;
@@ -41,7 +39,7 @@ input{
  color: #fff;
  padding: 6px;
  position: absolute;
- right: 50px;
+ right: 20px;
  top: 109px;
 }
 
@@ -67,7 +65,7 @@ button:hover{
  position: absolute;
  top: 30px;
  right: 30px;
- font-size: 1.1rem;
+ font-size: 1.5rem;
 }
 .rotated-1{
     transform: rotate(0deg);
@@ -87,36 +85,33 @@ margin-top: 15px;
 
 }
 ul{
-    width: 93%;
-    margin-left: -2.5rem; 
-    list-style-type: decimal;  
+    width: 92%;
+    list-style-type: none;  
+    margin-left: -2.5rem;
 }
 li{
     border: 1px solid;
-    background-color: rgb(202, 205, 211);
+    background-color: rgb(230, 231, 232);
     padding: 10px;
     border: none;
     text-transform: capitalize;
     padding-left: 1rem;
-    border-radius: 10px;
 }
-@media  screen and (max-width: 640px) {
-    h1{
-     margin: auto;
-    }
-    #container{
-     width: 90%;
-     display: block;
-     width: 70%;
-    }
-    #container h1{
-        top: 20px;
-      
-    }
-    .plus{
-      right: 20px  
-    }
-    #tasks i{
-        right: -27px;
-    }
+@media  screen and (max-width: 480px) {
+ #container{
+    width: 85%;
  }
+ input{
+    width: 74%;
+ }
+ }
+ @media  screen and (max-width: 390px){
+  input{
+    width: 72%;
+  }
+ }
+ @media  screen and (max-width: 350px){
+    input{
+      width: 70%;
+    }
+}
