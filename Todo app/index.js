@@ -70,16 +70,17 @@ function rotateBack(){
 filter.addEventListener("keyup",Filter)
 
 function Filter(e){
-var filterContent = e.target.value.toUpperCase();
-var listItems = ul.querySelectorAll(".list-elements");
-Array.from(listItems).forEach(function(Lists){
-let inputItems = Lists.firstChild.textContent;
-if(inputItems.toUpperCase().indexOf(filterContent) != -1){
-  Lists.style.display = "";
-}
-else{
-  Lists.style.display = "none";
-  inputList.parentElement.remove();
-}
-})
+  var text = e.target.value.toLowerCase();
+  var lists = ul.getElementsByTagName("li");
+  Array.from(lists).forEach(function(items){
+  var items1 = items.firstChild.textContent;
+  if(items1.toLowerCase().indexOf(text) != -1){
+    items.style.display = "block";
+    inputList.style.display = "none";
+  }
+  else{
+    items.style.display = "none";
+    inputList.style.display = "none";
+  }
+  })
 }
