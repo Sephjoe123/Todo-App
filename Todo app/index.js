@@ -3,6 +3,8 @@ var ul = document.getElementById("list-items");
 var tasks = document.getElementById("tasks");
 var inputList = document.getElementById("input-lists");
 var refresh = document.getElementById("refresh");
+var filter = document.getElementById("filter");
+
 
 inputList.style.display = "none";
 
@@ -22,6 +24,7 @@ else{
   list.appendChild(deleteBtn);
   ul.appendChild(list);
 } 
+
 
 // refresh list
 refresh.addEventListener("click",refreshList);
@@ -59,5 +62,24 @@ refresh.addEventListener("mouseleave",rotateBack)
 
 function rotateBack(){
   refresh.style.transform = "rotate(-90deg)";
-  refresh.style.transition = "ease-in-out .3s";
+  refresh.style.transition = "all .6s";
+}
+
+// filter list items on search
+
+filter.addEventListener("keyup",Filter)
+
+function Filter(e){
+var filterContent = e.target.value.toUpperCase();
+var listItems = ul.querySelectorAll(".list-elements");
+Array.from(listItems).forEach(function(Lists){
+let inputItems = Lists.firstChild.textContent;
+if(inputItems.toUpperCase().indexOf(filterContent) != -1){
+  Lists.style.display = "";
+}
+else{
+  Lists.style.display = "none";
+  inputList.parentElement.remove();
+}
+})
 }
