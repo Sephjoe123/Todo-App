@@ -1,86 +1,114 @@
-var add = document.getElementById("add");
-var ul = document.getElementById("list-items");
-var tasks = document.getElementById("tasks");
-var inputList = document.getElementById("input-lists");
-var refresh = document.getElementById("refresh");
-var filter = document.getElementById("filter");
+let addToListBtn = document.getElementById("add");
+let ul = document.getElementById("list-items");
+let tasks = document.getElementById("tasks");
+let refreshIcon = document.getElementById("refresh");
+let filter = document.getElementById("filter");
+let input = document.getElementById("input");
+let taskLeft = document.querySelector(".taskLeft");
 
+let listArray;
+let liValue;
+let finalLength;
 
-inputList.style.display = "none";
+addToListBtn.addEventListener("click", addToList);
 
-add.addEventListener("click",addItems);
-
-function addItems(e){
-  var input = document.getElementById("input").value;
-  if(input === ""){
-    alert("please enter a valid list")
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    addToList();
   }
-else{
-  var list = document.createElement("li");
-  list.className = "list-elements";
-  list.appendChild(document.createTextNode(input))
-  var deleteBtn = document.createElement("i");
-  deleteBtn.className = "fa-solid fa-trash";
-  list.appendChild(deleteBtn);
-  ul.appendChild(list);
-} 
+});
 
+function addToList() {
+  let inputValue = input.value.trim();
+  inputValue.trim();
+  if (inputValue !== "") {
+    let li = document.createElement("li");
+    li.textContent = inputValue;
+    ul.appendChild(li);
 
-// refresh list
-refresh.addEventListener("click",refreshList);
-function refreshList(e){
- if(e.target === refresh){
- ul.removeChild(list);
- refresh.style.transform = "rotate(90deg)";
- }
+    let trashIcon = document.createElement("i");
+    trashIcon.className = "fa-solid fa-trash";
+    li.appendChild(trashIcon);
+    clearInputField();
 
- else return ul.style.display = "block";
-}
+    let liValue = ul.querySelectorAll("li");
+    listArray = Array.from(liValue);
+    taskLeft.innerHTML = `
+    You have ${listArray.length} task(s) to complete
+    `;
 
-// remove individual list items
-ul.addEventListener("click",removeList);
-function removeList(e){
-  if(e.target === deleteBtn){
-    if(confirm("Are you sure ?"))
-    deleteBtn.parentElement.remove();
+    trashIcon.addEventListener("click", (e) => {
+      if (e.target === trashIcon) {
+        li.remove();
+        listArray.pop();
+        finalLength = listArray.length;
+        taskLeft.innerHTML = `
+        You have ${finalLength} task(s) to complete
+       `;
+      }
+    });
+  } else {
+    alert("Please enter a valid input");
   }
 }
-return deleteBtn;
-}
 
-// remove texts after beign submitted;
-function removeText(){
- if(input !== ""){
-  input.value = "";
- }
-}
-add.addEventListener("click",removeText)
-// remove items after clicking deleteBtn
-
-// rotate back
-refresh.addEventListener("mouseleave",rotateBack)
-
-function rotateBack(){
-  refresh.style.transform = "rotate(-90deg)";
-  refresh.style.transition = "all .6s";
-}
-
-// filter list items on search
-
-filter.addEventListener("keyup",Filter)
-
-function Filter(e){
-  var text = e.target.value.toLowerCase();
-  var lists = ul.getElementsByTagName("li");
-  Array.from(lists).forEach(function(items){
-  var items1 = items.firstChild.textContent;
-  if(items1.toLowerCase().indexOf(text) != -1){
-    items.style.display = "block";
-    inputList.style.display = "none";
+function clearInputField() {
+  if (input.value !== "") {
+    input.value = "";
   }
-  else{
-    items.style.display = "none";
-    inputList.style.display = "none";
-  }
-  })
 }
+
+refreshIcon.addEventListener("click", () => {
+  if (ul.innerHTML !== "") {
+    refreshIcon.style.rotate = "90deg";
+    refreshIcon.style.transition = "0.5s";
+    ul.innerHTML = "";
+    taskLeft.innerHTML = `
+      You have 0 task(s) to complete
+      `;
+
+    setTimeout(() => {
+      refreshIcon.style.rotate = "0deg";
+      input.value = "";
+    }, 1000);
+  } else {
+    return;
+  }
+});
+
+input.addEventListener("input", controlInputLength);
+
+function controlInputLength() {
+let inputValue = input.value;
+let inputLength = inputValue.length;
+
+if(inputLength > 36){
+  inputValue = inputValue.slice(0,inputLength);
+  input.value = inputValue;
+  alert("Maximum character reached")
+}
+}
+
+filter.addEventListener("input", () => {
+  let filterValue = filter.value;
+  let listElements = Array.from(ul.querySelectorAll("li"));
+ 
+  let matchedElementsCount = 0;
+
+  listElements.forEach((item) => {
+    let textToBeCompared = item.innerText;
+    let firstLetter = textToBeCompared[0];
+
+    if (filterValue === "") {
+      item.style.display = "block";
+      matchedElementsCount++;
+    } else if (firstLetter.indexOf(filterValue[0]) > -1) {
+      item.style.display = "block";
+      matchedElementsCount++;
+    } else {
+      item.style.display = "none";
+    }
+  });
+
+  taskLeft.innerHTML = `You have ${matchedElementsCount} task(s) to complete`;
+});
