@@ -42,7 +42,7 @@ input{
  padding: 10px 8px;
  position: absolute;
  right: 20px;
- top: 161px;
+ top: 163px;
 }
 #task{
     display: flex;
@@ -76,7 +76,6 @@ button:hover{
     font-size: 1rem;
 }
 
-
 #refresh{
  position: absolute;
  top: 30px;
@@ -100,10 +99,29 @@ i:hover{
 ul .fa-trash{
     position: absolute;
     right: 25px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 li{
-    padding-top: 5px;
+    background-color: rgb(240, 240, 240);
+    padding:  12px;
+    font-size: 0.9rem;
+    position: relative;
+    
+    
+}
+.confirmation-modal{
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    text-align: center;
+    transition: ease-in-out .7s;
+   
+}
+ul .fa-pen-to-square{
+    position: absolute;
+    right: 50px;
+    margin-top: 3px;
+    font-size: 1.2rem;
 }
 /* li::before{
     content:  "o";
@@ -111,6 +129,34 @@ li{
 .fa-trash{
     margin-top: 3px;
 }
+button.savebtn, button.cancelbtn{
+    position: absolute;
+    top: 50px;
+    left: 5px;
+    padding: 5px 15px;
+
+    
+}
+.cancelbtn{
+    margin-left: 5rem;
+}
+.savebtn{
+    background-color: #198754;
+    color: #fff;
+    border: none;
+}
+.success-modal{
+    background-color: #198754;
+    color: #fff;
+    padding: 7px;
+    width: 50%;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    margin: 1rem;
+    display: none;
+    text-align: center;
+ }
 @media  screen and (max-width: 480px) {
  #container{
     width: 85%;
@@ -125,6 +171,7 @@ li{
     width: 250px;
     top: 120px;
  }
+
  }
  @media  screen and (max-width: 390px){
   input{
