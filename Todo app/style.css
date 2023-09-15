@@ -109,6 +109,7 @@ li{
     font-size: 0.9rem;
     position: relative;  
     padding-left: 3rem;
+    border: 1px solid rgb(224, 219, 219);
 }
 
 .fa-circle, .fa-check{
@@ -118,6 +119,9 @@ li{
     top: 20px;
     color: #868686;
    
+}
+.fa-circle{
+    left: 10px;
 }
 .confirmation-modal{
     width: 250px;
@@ -185,9 +189,42 @@ button.savebtn, button.cancelbtn{
  }
 
  }
- @media  screen and (max-width: 390px){
+ @media  screen and (max-width: 450px){
   input{
-    width: 72%;
+    max-width: 70%;
+    padding-top: 5px;
+  }
+  .fa-plus{
+    font-size: 0.8rem;
+    margin-top: -1.3rem;
+  }
+  .fa-pen-to-square,.fa-trash{
+    display: block;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  #task h1{
+    font-size: 1.3rem;
+  }
+ ul .fa-trash{
+    right: 10px;
+    font-size: 1rem;
+  }
+ #task .taskLeft{
+  font-size: 0.75rem;
+
+  }
+ul .fa-pen-to-square{
+    font-size: 1.05rem;
+    right: 30px;
+    bottom: 9px;
+}
+li{
+    font-size: 0.75rem;
+}
+  li{
+    padding-bottom: 35px;
   }
  }
  @media  screen and (max-width: 350px){
