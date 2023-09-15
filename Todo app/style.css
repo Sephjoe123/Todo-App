@@ -26,6 +26,7 @@ body{
     top: 0px;
     left: 35px;
     font-weight: bold;
+
 }
 input{
     margin: 10px 20px;
@@ -54,7 +55,7 @@ input{
     font-size: 1rem;
 }
 #task h1{
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 ul{
    
@@ -100,14 +101,23 @@ ul .fa-trash{
     position: absolute;
     right: 25px;
     font-size: 1.2rem;
+  
 }
 li{
     background-color: rgb(240, 240, 240);
     padding:  12px;
     font-size: 0.9rem;
-    position: relative;
-    
-    
+    position: relative;  
+    padding-left: 3rem;
+}
+
+.fa-circle, .fa-check{
+    font-size: 1.4rem;
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    color: #868686;
+   
 }
 .confirmation-modal{
     width: 250px;
@@ -144,10 +154,12 @@ button.savebtn, button.cancelbtn{
     background-color: #198754;
     color: #fff;
     border: none;
+    
 }
 .success-modal{
     background-color: #198754;
     color: #fff;
+    color: #ffffff;
     padding: 7px;
     width: 50%;
     border-radius: 5px;
