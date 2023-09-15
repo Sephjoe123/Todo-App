@@ -6,6 +6,8 @@ const filter = document.getElementById("filter");
 const input = document.getElementById("input");
 const taskLeft = document.querySelector(".taskLeft");
 
+let isEditBtnRunnig = false;
+
 const successModal = document.querySelector(".success-modal");
 let functionRunning = true;
 
@@ -34,7 +36,7 @@ function addToList() {
 
     taskItem.push(FinalValue);
     localStorage.setItem("taskItem", JSON.stringify(taskItem));
-
+    controlInputLength();
     createListItems();
     console.log(taskItem);
 
@@ -63,7 +65,6 @@ function clearInputField() {
 
 refreshIcon.addEventListener("click", () => {
   const todoList = JSON.parse(localStorage.getItem("tasks")) || [];
-
   if (ul.innerHTML !== "") {
     refreshIcon.style.rotate = "90deg";
     refreshIcon.style.transition = "0.5s";
@@ -86,9 +87,8 @@ refreshIcon.addEventListener("click", () => {
 input.addEventListener("input", controlInputLength);
 
 function controlInputLength() {
-  const inputValue = input.value;
+  let inputValue = input.value;
   const inputLength = inputValue.length;
-
   if (inputLength > 36) {
     inputValue = inputValue.slice(0, inputLength);
     input.value = inputValue;
@@ -100,7 +100,6 @@ filter.addEventListener("input", () => {
   const filterValue = filter.value;
   const listElements = Array.from(ul.querySelectorAll("li"));
   const matchedElementsCount = 0;
-
   listElements.forEach((item) => {
     const textToBeCompared = item.innerText;
     const firstLetter = textToBeCompared[0];
@@ -123,25 +122,30 @@ function moveToTop(ul, li) {
   ul.insertBefore(li, ul.firstChild);
 }
 
-function createListItems(FinalValue) {
+function createListItems() {
   ul.innerHTML = "";
   taskItem.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
     const editIcon = document.createElement("i");
-
     editIcon.className = "fa-solid fa-pen-to-square";
     const trashIcon = document.createElement("i");
     trashIcon.className = "fa-solid fa-trash";
 
-    li.appendChild(trashIcon);
-    li.appendChild(editIcon);
+    const circle = document.createElement("i");
+    circle.className = "fa-regular fa-circle";
+    listChildArray = [circle, trashIcon, editIcon];
+
+    listChildArray.forEach((item) => {
+      li.appendChild(item);
+    });
 
     ul.appendChild(li);
-    deleteElement(trashIcon, li);
+    deleteElement(trashIcon, li, item);
     moveToTop(ul, li);
     displayTaskLeft(ul);
     editAndUpdateItems(editIcon, li, trashIcon);
+    checkItems(circle, li);
   });
 }
 
@@ -156,27 +160,28 @@ function displayTaskLeft(ul) {
 `;
 }
 
-function deleteElement(delBtn, li) {
+function deleteElement(delBtn, li, item) {
   delBtn.addEventListener("click", () => {
-    const itemText = li.textContent;
-    const index = taskItem.indexOf(itemText);
-
+    const index = taskItem.indexOf(item);
     taskItem.splice(index, 1);
     li.remove();
     localStorage.setItem("taskItem", JSON.stringify(taskItem));
     taskLeft.innerHTML = `
    You have ${taskItem.length} task(s) to complete
  `;
-
   });
 }
 function editAndUpdateItems(editbtn, li, trashIcon) {
+  if (isEditBtnRunnig) {
+    return;
+  }
   editbtn.addEventListener("click", () => {
+    isEditBtnRunnig = true;
     if (li.querySelector(".savebtn") === null) {
       const savebtn = document.createElement("button");
       const cancelbtn = document.createElement("button");
-       const itemText = li.textContent;
-       const index = taskItem.indexOf(itemText);
+      const itemText = li.textContent;
+      const index = taskItem.indexOf(itemText);
 
       savebtn.className = "savebtn";
       cancelbtn.className = "cancelbtn";
@@ -188,22 +193,21 @@ function editAndUpdateItems(editbtn, li, trashIcon) {
       li.appendChild(cancelbtn);
       li.style.paddingBottom = "60px";
       li.contentEditable = "true";
-       
-    
       closeItems(li, cancelbtn, savebtn);
-      saveAndUpdate(savebtn,li,index)
+      saveAndUpdate(savebtn, li, index, cancelbtn);
 
       const liItems = {
-        cancel: cancelbtn, save: savebtn,edit: editbtn,  trash: trashIcon,
+        cancel: cancelbtn,
+        save: savebtn,
+        edit: editbtn,
+        trash: trashIcon,
       };
 
       for (let key in liItems) {
         liItems[key].contentEditable = "false";
       }
     }
-   
   });
-  
 }
 
 function closeItems(li, cancel, save) {
@@ -215,13 +219,40 @@ function closeItems(li, cancel, save) {
   });
 }
 
-function saveAndUpdate(savebtn, li, index) {
+function saveAndUpdate(savebtn, li, index, cancel) {
   savebtn.addEventListener("click", () => {
     let firstNode = li.childNodes[0];
-    let textContent = firstNode.textContent.trim(); // Get the text content and remove leading/trailing whitespace
+    let textContent = firstNode.textContent.trim();
     taskItem.splice(index, 1, textContent);
+    li.removeChild(cancel);
+    li.removeChild(savebtn);
     localStorage.setItem("taskItem", JSON.stringify(taskItem));
-    console.log(taskItem);
-    console.log(textContent);
+    li.style.paddingBottom = "12px";
   });
 }
+
+function checkItems(circle, li) {
+  circle.addEventListener("click", () => {
+    if (circle.classList.contains("fa-circle")) {
+      circle.className = "fa-solid fa-check";
+      li.style.backgroundColor = "#198754";
+      li.style.color = "#fff";
+      listChildren = li.children;
+      li.style.textDecoration = "line-through";
+      for (let i = 0; i < listChildren.length; i++) {
+        listChildren[i].style.color = "rgb(240, 240, 240)";
+      }
+    } else if (circle.classList.contains("fa-check")) {
+      circle.className = "fa-regular fa-circle";
+      li.style.textDecoration = "none";
+      li.style.backgroundColor = "";
+      li.style.color = "";
+      for (let i = 0; i < listChildren.length; i++) {
+        listChildren[i].style.color = "";
+      }
+    }
+  });
+}
+// const date = new Date();
+// let dateString = date.toDateString();
+// document.querySelector(".date").innerText = dateString;
