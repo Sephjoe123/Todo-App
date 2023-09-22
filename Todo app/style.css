@@ -34,7 +34,10 @@ input{
     outline-color: rgb(58, 85, 237);
     width: 90%;
     overflow: hidden;
+    
+    
 }
+
 .plus{
  font-size: 1rem;
  background-color: rgb(40, 64, 205);
@@ -43,6 +46,7 @@ input{
  position: absolute;
  right: 30px;
  top: 163px;
+
 }
 #task{
     display: flex;
@@ -174,13 +178,19 @@ button.savebtn, button.cancelbtn{
     display: none;
     text-align: center;
  }
-@media  screen and (max-width: 480px) {
-
-
+@media  screen and (max-width: 580px) {
+ #container{
+    width: 90%;
  }
- @media  screen and (max-width: 450px){
- 
+ #input{
+    width: 88%;
+    
  }
- @media  screen and (max-width: 350px){
+ .plus{
+    top: 166px;
+    height: 20px;
+    right: 25px;
+ }
 
 }
+
