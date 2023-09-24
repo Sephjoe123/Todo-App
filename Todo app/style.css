@@ -6,10 +6,11 @@ body{
     font-family: Poppins;
 }
 #filter{
-    width: 350px;
+    width: 20%;
     position: absolute;
     right: 50px;
     top: 50px;
+    padding: 15px;
     text-align: center;
 }
 
@@ -28,24 +29,26 @@ body{
     font-weight: bold;
 
 }
-input{
+#input{
     margin: 10px 20px;
     padding: 15px;
+    height: 1.3rem;
     outline-color: rgb(58, 85, 237);
-    width: 90%;
     overflow: hidden;
-    
+    width: 80%;
+    position: relative;
+    left: -5%;
     
 }
-
 .plus{
  font-size: 1rem;
  background-color: rgb(40, 64, 205);
  color: #fff;
  padding: 15px;
  position: absolute;
- right: 30px;
- top: 163px;
+ left: 90%;
+ height: 1.4rem;
+ margin-top: 3.2rem;
 
 }
 #task{
@@ -182,15 +185,26 @@ button.savebtn, button.cancelbtn{
  #container{
     width: 90%;
  }
- #input{
-    width: 88%;
-    
- }
  .plus{
-    top: 166px;
-    height: 20px;
-    right: 25px;
+left: 88%;
+padding: 12px;
  }
-
+ 
+#task h1{
+    font-size: 1.2rem;
 }
-
+#filter{
+    width: 90%;
+    right: 0;
+    left : 0;
+    display: block;
+    margin: 0 auto;
+    top: 20%;
+}
+}
+ @media  screen and (max-width: 350px){
+    #filter{
+        width: 85%;
+        
+    }
+}
