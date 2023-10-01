@@ -8,7 +8,6 @@ const taskLeft = document.querySelector(".taskLeft");
 
 let isEditBtnRunnig = false;
 
-const successModal = document.querySelector(".success-modal");
 let functionRunning = true;
 
 let listArray;
@@ -43,11 +42,10 @@ function addToList() {
     if (FinalValue !== "") {
       clearInputField();
       functionRunning = false;
-      successModal.style.display = "block";
+    
 
       setTimeout(() => {
         functionRunning = true;
-        successModal.style.display = "none";
       }, 2000);
 
       displayTaskLeft(ul);
@@ -97,23 +95,26 @@ function controlInputLength() {
 }
 
 filter.addEventListener("input", () => {
-  const filterValue = filter.value;
-  const listElements = Array.from(ul.querySelectorAll("li"));
-  const matchedElementsCount = 0;
+  let filterValue = filter.value;
+  let listElements = Array.from(ul.querySelectorAll("li"));
+  let matchedElementsCount = 0;
   listElements.forEach((item) => {
     const textToBeCompared = item.innerText;
-    const firstLetter = textToBeCompared[0];
+    const firstLetter = textToBeCompared[0]
+    console.log(firstLetter)
 
     if (filterValue === "") {
       item.style.display = "block";
       matchedElementsCount++;
-    } else if (firstLetter.indexOf(filterValue[0]) > -1) {
+    } else if (firstLetter.indexOf(filterValue[0].toUpperCase()) > -1) {
       item.style.display = "block";
       matchedElementsCount++;
     } else {
       item.style.display = "none";
     }
   });
+
+  
 
   taskLeft.innerHTML = `You have ${matchedElementsCount} task(s) to complete`;
 });
