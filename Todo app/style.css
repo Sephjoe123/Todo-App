@@ -69,6 +69,7 @@ ul{
     left : 0;
     width: 97%;
     margin-left: -2rem;
+
 }
 li{
     list-style-position: inside;
@@ -161,11 +162,15 @@ button.savebtn, button.cancelbtn{
 }
 .cancelbtn{
     margin-left: 5rem;
+    background-color:  #c0283a;
+    color: #fff;
+    border: none;
+    
 }
 .savebtn{
     background-color: #198754;
     color: #fff;
-    border: none;
+    border: 1px solid rgb(88, 87, 87);
     
 }
 .success-modal{
@@ -185,16 +190,24 @@ button.savebtn, button.cancelbtn{
  #container{
     width: 90%;
  }
+ #input{
+    padding-top: 8px;
+ }
  .plus{
 left: 88%;
 padding: 12px;
  }
+ ul{
+    width: 100%;
+    left: -0.4rem;
+ }
+ 
  
 #task h1{
     font-size: 1.2rem;
 }
 #filter{
-    width: 90%;
+    width: 85%;
     right: 0;
     left : 0;
     display: block;
